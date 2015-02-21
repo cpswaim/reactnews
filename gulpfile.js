@@ -4,6 +4,7 @@ var gulp = require('gulp'),
     notify = require('gulp-notify'),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat'),
+    connect = require('gulp-connect'),
     buildFolder = 'build/';
 
 var paths = {
@@ -24,7 +25,7 @@ var paths = {
 function startExpress() {
 }
 
-gulp.task('default', ['build', 'watch']);
+gulp.task('default', ['build', 'watch', 'connect']);
 
 gulp.task('build', ['html', 'js']);
 
@@ -64,4 +65,8 @@ gulp.task('clean', function() {
         })
         .pipe(clean())
         .pipe(notify("Cleaning build folder..."));
+});
+ 
+gulp.task('connect', function() {
+  connect.server();
 });
