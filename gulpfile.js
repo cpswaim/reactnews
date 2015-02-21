@@ -22,9 +22,6 @@ var paths = {
     }
 };
 
-function startExpress() {
-}
-
 gulp.task('default', ['build', 'watch', 'connect']);
 
 gulp.task('build', ['html', 'js']);
@@ -36,7 +33,8 @@ gulp.task('js', function() {
         .pipe(react())
         .pipe(concat('app.js'))
         .pipe(gulp.dest(buildFolder))
-        .pipe(notify("Recompiling JS files..."));
+        .pipe(notify("Recompiling JS files..."))
+        .pipe(connect.reload());
 });
 
 gulp.task('minify-js', function() {
@@ -51,7 +49,8 @@ gulp.task('minify-js', function() {
 gulp.task('html', function() {
     return gulp.src('src/**/*.html')
         .pipe(gulp.dest(buildFolder))
-        .pipe(notify("Moving HTML files..."));
+        .pipe(notify("Moving HTML files..."))
+        .pipe(connect.reload());
 });
 
 gulp.task('watch', function() {
@@ -68,5 +67,9 @@ gulp.task('clean', function() {
 });
  
 gulp.task('connect', function() {
-  connect.server();
+  connect.server({
+    root: 'build',
+    port: 8001,
+    livereload: true
+  });
 });
