@@ -8,25 +8,53 @@ var gulp = require('gulp'),
     buildFolder = 'build/';
 
 var paths = {
-    js:{
+    css: {
+        dev: [
+            'bower_components/bootstrap-material-design/dist/css/material-fullpalette.min.css',
+            'bower_components/bootstrap-material-design/dist/css/material.min.css',
+            'bower_components/bootstrap-material-design/dist/css/ripples.min.css',
+            'bower_components/bootstrap-material-design/dist/css/roboto.min.css'
+        ],
+        dist: [
+            'bower_components/bootstrap-material-design/dist/css/material-fullpalette.min.css',
+            'bower_components/bootstrap-material-design/dist/css/material.min.css',
+            'bower_components/bootstrap-material-design/dist/css/ripples.min.css',
+            'bower_components/bootstrap-material-design/dist/css/roboto.min.css'
+        ]
+    },
+    js: {
         dev: [
             'bower_components/firebase/firebase-debug.js',
             'bower_components/react/react.js',
+            'bower_components/jquery/dist/jquery.js',
+            'bower_components/bootstrap-material-design/dist/js/material.js',
+            'bower_components/bootstrap-material-design/dist/js/ripples.js',
             'src/**/*.js'
         ],
         dist: [
             'bower_components/firebase/firebase.js',
             'bower_components/react/react.min.js',
+            'bower_components/bootstrap-material-design/dist/js/material.min.js',
+            'bower_components/bootstrap-material-design/dist/js/ripples.min.js',
+            'bower_components/jquery/dist/jquery.min.js',
             'src/**/*.js'
+        ]
+    },
+    fonts: {
+        dev: [
+            'bower_components/bootstrap-material-design/dist/fonts/**/*'
+        ],
+        dist: [
+            'bower_components/bootstrap-material-design/dist/fonts/**/*'
         ]
     }
 };
 
 gulp.task('default', ['build', 'watch', 'connect']);
 
-gulp.task('build', ['html', 'js']);
+gulp.task('build', ['html', 'js', 'css']);
 
-gulp.task('dist', ['html', 'minify-js']);
+gulp.task('dist', ['html', 'minify-js', 'css']);
 
 gulp.task('js', function() {
     return gulp.src(paths.js.dev)
@@ -53,9 +81,24 @@ gulp.task('html', function() {
         .pipe(connect.reload());
 });
 
+gulp.task('css', ['fonts'], function() {
+    return gulp.src(paths.css.dev)
+        .pipe(gulp.dest(buildFolder+'/css'))
+        .pipe(notify("Moving CSS files..."))
+        .pipe(connect.reload());
+});
+
+gulp.task('fonts', function() {
+    return gulp.src(paths.fonts.dev)
+        .pipe(gulp.dest(buildFolder+'/fonts'))
+        .pipe(notify("Moving Font files..."))
+        .pipe(connect.reload());
+});
+
 gulp.task('watch', function() {
     var watchJS = gulp.watch('src/**/*.js', ['js']),
-        watchHTML = gulp.watch('src/**/*.html', ['html']);
+        watchHTML = gulp.watch('src/**/*.html', ['html']),
+        watchCSS = gulp.watch('src/**/*.css', ['css']);
 });
 
 gulp.task('clean', function() {
@@ -65,7 +108,7 @@ gulp.task('clean', function() {
         .pipe(clean())
         .pipe(notify("Cleaning build folder..."));
 });
- 
+
 gulp.task('connect', function() {
   connect.server({
     root: 'build',

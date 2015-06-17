@@ -104,15 +104,17 @@ var NewsService = function() {
 var Article = React.createClass({
     render: function() {
         return (
-            <div>
-                <a href={this.props.url}>
-                    <h3>
-                        {this.props.number}. {this.props.title}
-                    </h3>
-                </a>
-                <span>{this.props.score} points by&nbsp;
+            <div className="panel panel-default">
+                <div className="panel-heading" >
+                    <a href={this.props.url}>
+                        <h3>
+                            {this.props.number}. {this.props.title}
+                        </h3>
+                    </a>
+                </div>
+                <div className="panel-body">{this.props.score} points by&nbsp;
                     <a href={"https://news.ycombinator.com/user?id="+this.props.by}>{this.props.by}</a>
-                </span>
+                </div>
             </div>
         );
     }
@@ -150,12 +152,29 @@ var ArticleBox = React.createClass({
 
         api.getFullArticleList().then(function(articles){
             me.setState({data:articles});
+            //Init material ripples and jQuery effects after render
+            $.material.init();
         });
     },
     render: function() {
         return (
-            <div className="articleBox">
-                <h1>React News</h1>
+            <div className="articleBox container">
+                <div className="navbar navbar-warning">
+                    <div className="navbar-header">
+                        <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-warning-collapse">
+                            <span className="icon-bar"></span>
+                            <span className="icon-bar"></span>
+                            <span className="icon-bar"></span>
+                        </button>
+                        <a className="navbar-brand" href="javascript:void(0)">React News</a>
+                    </div>
+                    <div className="navbar-collapse collapse navbar-warning-collapse">
+                        <ul className="nav navbar-nav">
+                            <li className="active"><a href="javascript:void(0)">Active</a></li>
+                            <li><a href="#">Link</a></li>
+                        </ul>
+                    </div>
+                </div>
                 <ArticleList data={this.state.data} />
             </div>
         );
