@@ -13,13 +13,15 @@ var paths = {
             'bower_components/bootstrap-material-design/dist/css/material-fullpalette.min.css',
             'bower_components/bootstrap-material-design/dist/css/material.min.css',
             'bower_components/bootstrap-material-design/dist/css/ripples.min.css',
-            'bower_components/bootstrap-material-design/dist/css/roboto.min.css'
+            'bower_components/bootstrap-material-design/dist/css/roboto.min.css',
+            'src/css/**/*.css'
         ],
         dist: [
             'bower_components/bootstrap-material-design/dist/css/material-fullpalette.min.css',
             'bower_components/bootstrap-material-design/dist/css/material.min.css',
             'bower_components/bootstrap-material-design/dist/css/ripples.min.css',
-            'bower_components/bootstrap-material-design/dist/css/roboto.min.css'
+            'bower_components/bootstrap-material-design/dist/css/roboto.min.css',
+            'src/css/**/*.css'
         ]
     },
     js: {
@@ -46,6 +48,14 @@ var paths = {
         ],
         dist: [
             'bower_components/bootstrap-material-design/dist/fonts/**/*'
+        ]
+    },
+    assets: {
+        dev: [
+            'src/assets/**/*'
+        ],
+        dist: [
+            'src/assets/**/*'
         ]
     }
 };
@@ -81,7 +91,7 @@ gulp.task('html', function() {
         .pipe(connect.reload());
 });
 
-gulp.task('css', ['fonts'], function() {
+gulp.task('css', ['fonts', 'assets'], function() {
     return gulp.src(paths.css.dev)
         .pipe(gulp.dest(buildFolder+'/css'))
         .pipe(notify("Moving CSS files..."))
@@ -92,6 +102,13 @@ gulp.task('fonts', function() {
     return gulp.src(paths.fonts.dev)
         .pipe(gulp.dest(buildFolder+'/fonts'))
         .pipe(notify("Moving Font files..."))
+        .pipe(connect.reload());
+});
+
+gulp.task('assets', function() {
+    return gulp.src(paths.assets.dev)
+        .pipe(gulp.dest(buildFolder+'/assets'))
+        .pipe(notify("Moving assets..."))
         .pipe(connect.reload());
 });
 

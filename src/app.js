@@ -142,7 +142,7 @@ var ArticleList = React.createClass({
     }
 });
 
-var ArticleBox = React.createClass({
+var ReactNews = React.createClass({
     getInitialState: function() {
         return {data: []};
     },
@@ -150,7 +150,9 @@ var ArticleBox = React.createClass({
         var me = this,
             api = new NewsService();
 
+        $('.loadmask.modal').show();
         api.getFullArticleList().then(function(articles){
+            $('.loadmask.modal').hide();
             me.setState({data:articles});
             //Init material ripples and jQuery effects after render
             $.material.init();
@@ -158,32 +160,53 @@ var ArticleBox = React.createClass({
     },
     render: function() {
         return (
-            <div className="articleBox container">
-                <div className="navbar navbar-warning">
-                    <div className="navbar-header">
-                        <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-warning-collapse">
-                            <span className="icon-bar"></span>
-                            <span className="icon-bar"></span>
-                            <span className="icon-bar"></span>
-                        </button>
-                        <a className="navbar-brand" href="javascript:void(0)">React News</a>
-                    </div>
-                    <div className="navbar-collapse collapse navbar-warning-collapse">
-                        <ul className="nav navbar-nav">
-                            <li className="active"><a href="javascript:void(0)">Active</a></li>
-                            <li><a href="#">Link</a></li>
-                        </ul>
-                    </div>
-                </div>
+            <div className="application container">
+                <LoadMask />
+                <Banner />
                 <ArticleList data={this.state.data} />
             </div>
         );
     }
 });
 
+var Banner = React.createClass({
+    render: function() {
+        return (
+            <div className="navbar navbar-warning">
+                <div className="navbar-header">
+                    <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-warning-collapse">
+                        <span className="icon-bar"></span>
+                        <span className="icon-bar"></span>
+                        <span className="icon-bar"></span>
+                    </button>
+                    <a className="navbar-brand" href="javascript:void(0)">React News</a>
+                </div>
+            </div>
+        );
+    }
+});
+
+var LoadMask = React.createClass({
+    render: function() {
+        return (
+            <div className="loadmask modal">
+                <div className="modal-dialog">
+                    <div className="modal-content text-center">
+                        <div className="modal-header">
+                            <h4 className="modal-title">Loading...</h4>
+                        </div>
+                        <div className="modal-body">
+                            <img src="assets/loading.gif" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+});
 document.addEventListener("DOMContentLoaded", function(event) {
     React.render(
-        <ArticleBox />,
+        <ReactNews />,
         document.getElementById('content')
     );
 })
