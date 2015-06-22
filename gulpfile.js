@@ -31,7 +31,7 @@ var paths = {
             'bower_components/jquery/dist/jquery.js',
             'bower_components/bootstrap-material-design/dist/js/material.js',
             'bower_components/bootstrap-material-design/dist/js/ripples.js',
-            'src/**/*.js'
+            'src/scripts/**/*.js'
         ],
         dist: [
             'bower_components/firebase/firebase.js',
@@ -39,7 +39,7 @@ var paths = {
             'bower_components/bootstrap-material-design/dist/js/material.min.js',
             'bower_components/bootstrap-material-design/dist/js/ripples.min.js',
             'bower_components/jquery/dist/jquery.min.js',
-            'src/**/*.js'
+            'src/scripts/**/*.js'
         ]
     },
     fonts: {
