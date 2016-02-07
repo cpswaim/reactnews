@@ -14,6 +14,7 @@ var paths = {
             'bower_components/bootstrap-material-design/dist/css/material.min.css',
             'bower_components/bootstrap-material-design/dist/css/ripples.min.css',
             'bower_components/bootstrap-material-design/dist/css/roboto.min.css',
+            'bower_components/font-awesome/css/font-awesome.min.css',
             'src/css/**/*.css'
         ],
         dist: [
@@ -21,6 +22,7 @@ var paths = {
             'bower_components/bootstrap-material-design/dist/css/material.min.css',
             'bower_components/bootstrap-material-design/dist/css/ripples.min.css',
             'bower_components/bootstrap-material-design/dist/css/roboto.min.css',
+            'bower_components/font-awesome/css/font-awesome.min.css',
             'src/css/**/*.css'
         ]
     },
@@ -28,6 +30,8 @@ var paths = {
         dev: [
             'bower_components/firebase/firebase-debug.js',
             'bower_components/react/react.js',
+            'bower_components/flux/dist/Flux.js',
+            'bower_components/microevents/microevent.js',
             'bower_components/jquery/dist/jquery.js',
             'bower_components/bootstrap-material-design/dist/js/material.js',
             'bower_components/bootstrap-material-design/dist/js/ripples.js',
@@ -36,6 +40,8 @@ var paths = {
         dist: [
             'bower_components/firebase/firebase.js',
             'bower_components/react/react.min.js',
+            'bower_components/flux/dist/Flux.min.js',
+            'bower_components/microevents/microevent.js',
             'bower_components/bootstrap-material-design/dist/js/material.min.js',
             'bower_components/bootstrap-material-design/dist/js/ripples.min.js',
             'bower_components/jquery/dist/jquery.min.js',
@@ -44,10 +50,12 @@ var paths = {
     },
     fonts: {
         dev: [
-            'bower_components/bootstrap-material-design/dist/fonts/**/*'
+            'bower_components/bootstrap-material-design/dist/fonts/**/*',
+            'bower_components/font-awesome/fonts/**/*'
         ],
         dist: [
-            'bower_components/bootstrap-material-design/dist/fonts/**/*'
+            'bower_components/bootstrap-material-design/dist/fonts/**/*',
+            'bower_components/font-awesome/fonts/**/*'
         ]
     },
     assets: {

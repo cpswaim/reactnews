@@ -1,6 +1,10 @@
 .loadmask.modal {
     background-color: rgba(40, 40, 40, .8);
 }
+.navbar .btn-refresh {
+	float: right;
+	margin-right: 10px;
+}
 /*.loadmask .modal-dialog {
     width: 200px;
 }*/

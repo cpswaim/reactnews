@@ -1,18 +1,61 @@
 var ReactNews = React.createClass({
     getInitialState: function() {
-        return {data: []};
+        return {data: [], selectedArticle: null};
     },
     componentDidMount: function() {
         var me = this,
-            api = new NewsService();
+            articleStore = new ArticleStore();
 
+        AppDispatcher.register(function(payload){
+            var action = null;
+            if(me.listeners && me.listeners[payload.eventName]){
+                action = me.listeners[payload.eventName];
+                if(typeof action === "function"){
+                    action.call(me, payload.content);
+                }
+                else if(typeof action === "string" && me[action]){
+                    me[action].call(me, payload.content);
+                }
+            }
+        });
+
+        me.setStore(articleStore);
+        me.loadData();
+
+    },
+    mask: function(){
         $('.loadmask.modal').show();
-        api.getArticleList(0, 10).then(function(articles){
-            $('.loadmask.modal').hide();
-            me.setState({data: articles});
-            //Init material ripples and jQuery effects after render
+    },
+    unmask: function(){
+        $('.loadmask.modal').hide();
+    },
+    setStore: function(newStore){
+        if(this.store){
+            this.store.unbind('articlesLoaded', this.updateArticles);
+            this.store = null;
+        }
+        if(newStore){
+            newStore.bind('articlesLoaded', this.updateArticles);
+            this.store = newStore;
+        }
+    },
+    getStore: function(){
+        return this.store;
+    },
+    loadData: function(){
+        var me = this;
+        me.mask();
+
+        me.getStore().load().then(function(articles){
+            me.unmask();
             $.material.init();
         });
+    },
+    updateArticles: function(){
+        var me = this,
+            articles = null;
+        articles = me.getStore().getAll();
+        me.setState({data: articles, selectedArticle: null});
     },
     render: function() {
         return (
@@ -22,10 +65,16 @@ var ReactNews = React.createClass({
                 <ArticleList data={this.state.data} />
             </div>
         );
+    },
+    listeners: {
+        "reload": "loadData"
+        // "viewComments": "selectArticle"
     }
 });
 
 document.addEventListener("DOMContentLoaded", function(event) {
+    window.AppDispatcher = new Flux.Dispatcher();
+
     React.render(
         <ReactNews />,
         document.getElementById('content')

@@ -1,6 +1,10 @@
-var NewsService = function() {
+var ArticleService = function() {
     var me = this,
         firebaseApi = new Firebase("https://hacker-news.firebaseio.com/v0/");
+
+    var isNumber = function(val){
+        return typeof val === "number";
+    }
 
     me.getTopStoriesList = function(start, limit) {
         return new Promise(function(resolve, reject) {
@@ -76,16 +80,21 @@ var NewsService = function() {
     };
 
     me.getCommentTree = function(item, depth, fullResolve) {
-        return new Promise(function(resolve, reject) {
-            var i = 0,
-                depth = depth || 0,
-                prms = null,
-                kidPrmsList = [];
+        var i = 0,
+            depth = depth || 0,
+            prms = null,
+            kidPrmsList = [];
 
-            if (item && item.kids && item.kids.length > 0) {
+        return new Promise(function(resolve, reject) {
+            
+            //Check to make sure the article has childern 
+            // and these children aren't already resolved
+            if (item && item.kids && item.kids.length > 0 &&
+                item.kids.every(isNumber)) {
                 prms = me.getItemsByIds(item.kids);
                 prms.then(function(kids) {
                     item.kids = kids;
+                    console.log(kids);
                     if(!fullResolve && depth === 0) {
                         resolve(item);
                     }
