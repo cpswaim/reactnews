@@ -80,6 +80,10 @@ var ArticleStore = function() {
 		return map[id];
 	};
 
+	me.getCommentsForArticle = function(article){
+		 return api.getCommentTree(article, null, true);
+	}
+
 	// Add event triggers
 	MicroEvent.mixin(me);
 

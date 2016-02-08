@@ -94,7 +94,6 @@ var ArticleService = function() {
                 prms = me.getItemsByIds(item.kids);
                 prms.then(function(kids) {
                     item.kids = kids;
-                    console.log(kids);
                     if(!fullResolve && depth === 0) {
                         resolve(item);
                     }

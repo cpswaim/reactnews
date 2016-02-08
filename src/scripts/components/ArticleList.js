@@ -9,6 +9,7 @@ var ArticleList = React.createClass({
                     title={article.title}
                     by={article.by}
                     score={article.score}
+                    descendants={article.descendants}
                     key={index}
                     number={index+1} />
             );

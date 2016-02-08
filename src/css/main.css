@@ -5,6 +5,15 @@
 	float: right;
 	margin-right: 10px;
 }
+.navbar-header .title {
+	cursor: pointer;
+}
+.row.comment .panel-body {
+	padding-bottom: 0px;
+}
+.comment-header .action-list {
+	float: right;
+}
 /*.loadmask .modal-dialog {
     width: 200px;
 }*/

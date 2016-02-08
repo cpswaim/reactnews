@@ -57,18 +57,49 @@ var ReactNews = React.createClass({
         articles = me.getStore().getAll();
         me.setState({data: articles, selectedArticle: null});
     },
+    selectArticle: function(selected){
+        var me = this,
+            store = me.getStore(),
+            article = store.getById(selected.articleId);
+
+        me.mask();
+        store.getCommentsForArticle(article)
+        .then(function(fullArticle){
+            var articles = store.getAll();
+            me.setState({data: articles, selectedArticle: article});
+            me.unmask();
+        })
+    },
+    showArticleList: function(){
+        var me = this,
+            store = me.getStore(),
+            articles = store.getAll();
+
+        me.setState({data: articles, selectedArticle: null});
+    },
     render: function() {
         return (
             <div className="application container">
                 <LoadMask />
                 <Banner />
-                <ArticleList data={this.state.data} />
+                
+                { !this.state.selectedArticle ? 
+                    <ArticleList data={this.state.data} /> :
+                    null
+                }
+
+                { this.state.selectedArticle ? 
+                    <CommentList article={this.state.selectedArticle} /> : 
+                    null 
+                }
+
             </div>
         );
     },
     listeners: {
-        "reload": "loadData"
-        // "viewComments": "selectArticle"
+        "reload": "loadData",
+        "home": "showArticleList",
+        "viewComments": "selectArticle"
     }
 });
 
