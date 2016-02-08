@@ -33,7 +33,7 @@ var CommentList = React.createClass({
                                 <span className="action-list">
                                     <a href="#" className="fa fa-chevron-circle-left fa-lg"
                                         onClick={this.onBackClick}>
-                                        <div class="ripple-container"></div>
+                                        <div className="ripple-container"></div>
                                     </a>
                                 </span>
                             </div>
