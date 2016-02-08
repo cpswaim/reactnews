@@ -39,12 +39,12 @@ var paths = {
         ],
         dist: [
             'bower_components/firebase/firebase.js',
+            'bower_components/jquery/dist/jquery.min.js',
             'bower_components/react/react.min.js',
             'bower_components/flux/dist/Flux.min.js',
             'bower_components/microevents/microevent.js',
             'bower_components/bootstrap-material-design/dist/js/material.min.js',
             'bower_components/bootstrap-material-design/dist/js/ripples.min.js',
-            'bower_components/jquery/dist/jquery.min.js',
             'src/scripts/**/*.js'
         ]
     },
