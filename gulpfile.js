@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-    react = require('gulp-react'),
+    babel = require('gulp-babel'),
     clean = require('gulp-clean'),
     notify = require('gulp-notify'),
     uglify = require('gulp-uglify'),
@@ -13,39 +13,57 @@ var paths = {
             'bower_components/bootstrap-material-design/dist/css/material-fullpalette.min.css',
             'bower_components/bootstrap-material-design/dist/css/material.min.css',
             'bower_components/bootstrap-material-design/dist/css/ripples.min.css',
-            'bower_components/bootstrap-material-design/dist/css/roboto.min.css'
+            'bower_components/bootstrap-material-design/dist/css/roboto.min.css',
+            'bower_components/font-awesome/css/font-awesome.min.css',
+            'src/css/**/*.css'
         ],
         dist: [
             'bower_components/bootstrap-material-design/dist/css/material-fullpalette.min.css',
             'bower_components/bootstrap-material-design/dist/css/material.min.css',
             'bower_components/bootstrap-material-design/dist/css/ripples.min.css',
-            'bower_components/bootstrap-material-design/dist/css/roboto.min.css'
+            'bower_components/bootstrap-material-design/dist/css/roboto.min.css',
+            'bower_components/font-awesome/css/font-awesome.min.css',
+            'src/css/**/*.css'
         ]
     },
     js: {
         dev: [
             'bower_components/firebase/firebase-debug.js',
             'bower_components/react/react.js',
+            'bower_components/flux/dist/Flux.js',
+            'bower_components/microevents/microevent.js',
             'bower_components/jquery/dist/jquery.js',
             'bower_components/bootstrap-material-design/dist/js/material.js',
             'bower_components/bootstrap-material-design/dist/js/ripples.js',
-            'src/**/*.js'
+            'src/scripts/**/*.js'
         ],
         dist: [
             'bower_components/firebase/firebase.js',
+            'bower_components/jquery/dist/jquery.min.js',
             'bower_components/react/react.min.js',
+            'bower_components/flux/dist/Flux.min.js',
+            'bower_components/microevents/microevent.js',
             'bower_components/bootstrap-material-design/dist/js/material.min.js',
             'bower_components/bootstrap-material-design/dist/js/ripples.min.js',
-            'bower_components/jquery/dist/jquery.min.js',
-            'src/**/*.js'
+            'src/scripts/**/*.js'
         ]
     },
     fonts: {
         dev: [
-            'bower_components/bootstrap-material-design/dist/fonts/**/*'
+            'bower_components/bootstrap-material-design/dist/fonts/**/*',
+            'bower_components/font-awesome/fonts/**/*'
         ],
         dist: [
-            'bower_components/bootstrap-material-design/dist/fonts/**/*'
+            'bower_components/bootstrap-material-design/dist/fonts/**/*',
+            'bower_components/font-awesome/fonts/**/*'
+        ]
+    },
+    assets: {
+        dev: [
+            'src/assets/**/*'
+        ],
+        dist: [
+            'src/assets/**/*'
         ]
     }
 };
@@ -58,7 +76,7 @@ gulp.task('dist', ['html', 'minify-js', 'css']);
 
 gulp.task('js', function() {
     return gulp.src(paths.js.dev)
-        .pipe(react())
+        .pipe(babel())
         .pipe(concat('app.js'))
         .pipe(gulp.dest(buildFolder))
         .pipe(notify("Recompiling JS files..."))
@@ -67,7 +85,7 @@ gulp.task('js', function() {
 
 gulp.task('minify-js', function() {
     return gulp.src(paths.js.dist)
-        .pipe(react())
+        .pipe(babel())
         .pipe(concat('app.js'))
         .pipe(uglify())
         .pipe(gulp.dest(buildFolder))
@@ -81,7 +99,7 @@ gulp.task('html', function() {
         .pipe(connect.reload());
 });
 
-gulp.task('css', ['fonts'], function() {
+gulp.task('css', ['fonts', 'assets'], function() {
     return gulp.src(paths.css.dev)
         .pipe(gulp.dest(buildFolder+'/css'))
         .pipe(notify("Moving CSS files..."))
@@ -92,6 +110,13 @@ gulp.task('fonts', function() {
     return gulp.src(paths.fonts.dev)
         .pipe(gulp.dest(buildFolder+'/fonts'))
         .pipe(notify("Moving Font files..."))
+        .pipe(connect.reload());
+});
+
+gulp.task('assets', function() {
+    return gulp.src(paths.assets.dev)
+        .pipe(gulp.dest(buildFolder+'/assets'))
+        .pipe(notify("Moving assets..."))
         .pipe(connect.reload());
 });
 
