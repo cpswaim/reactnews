@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-    react = require('gulp-react'),
+    babel = require('gulp-babel'),
     clean = require('gulp-clean'),
     notify = require('gulp-notify'),
     uglify = require('gulp-uglify'),
@@ -76,7 +76,7 @@ gulp.task('dist', ['html', 'minify-js', 'css']);
 
 gulp.task('js', function() {
     return gulp.src(paths.js.dev)
-        .pipe(react())
+        .pipe(babel())
         .pipe(concat('app.js'))
         .pipe(gulp.dest(buildFolder))
         .pipe(notify("Recompiling JS files..."))
@@ -85,7 +85,7 @@ gulp.task('js', function() {
 
 gulp.task('minify-js', function() {
     return gulp.src(paths.js.dist)
-        .pipe(react())
+        .pipe(babel())
         .pipe(concat('app.js'))
         .pipe(uglify())
         .pipe(gulp.dest(buildFolder))
