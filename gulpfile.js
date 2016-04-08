@@ -30,6 +30,7 @@ var paths = {
         dev: [
             'bower_components/firebase/firebase-debug.js',
             'bower_components/react/react.js',
+            'bower_components/react/react-dom.js',
             'bower_components/flux/dist/Flux.js',
             'bower_components/microevents/microevent.js',
             'bower_components/jquery/dist/jquery.js',
@@ -41,6 +42,7 @@ var paths = {
             'bower_components/firebase/firebase.js',
             'bower_components/jquery/dist/jquery.min.js',
             'bower_components/react/react.min.js',
+            'bower_components/react/react-dom.min.js',
             'bower_components/flux/dist/Flux.min.js',
             'bower_components/microevents/microevent.js',
             'bower_components/bootstrap-material-design/dist/js/material.min.js',

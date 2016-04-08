@@ -106,7 +106,7 @@ var ReactNews = React.createClass({
 document.addEventListener("DOMContentLoaded", function(event) {
     window.AppDispatcher = new Flux.Dispatcher();
 
-    React.render(
+    ReactDOM.render(
         <ReactNews />,
         document.getElementById('content')
     );

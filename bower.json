@@ -14,8 +14,8 @@
     "tests"
   ],
   "dependencies": {
-    "react": "~0.12.2",
-    "firebase": "~2.1.2",
+    "react": "^15.0.0",
+    "firebase": "^2.4.2",
     "bootstrap-material-design": "~0.3.0",
     "jquery": "~2.1.4",
     "flux": "~2.1.1",
