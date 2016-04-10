@@ -1,4 +1,5 @@
 var webpack = require('webpack'),
+    HtmlWebpackPlugin = require('html-webpack-plugin'),
     path = require('path');
 
 var PROD = JSON.parse(process.env.PROD_ENV || '0');
@@ -11,6 +12,11 @@ var plugins = [
     new webpack.ProvidePlugin({
         $: "jquery",
         jQuery: "jquery"
+    }),
+    new HtmlWebpackPlugin({
+        title: 'ReactNews',
+        template: './src/index.html',
+        filename: 'index.html'
     })
 ];
 
