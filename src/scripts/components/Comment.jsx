@@ -1,5 +1,7 @@
-var Comment = React.createClass({
-    render: function() {
+import React from 'react';
+
+export default class Comment extends React.Component {
+    render() {
         var children = null;
         if(this.props.kids){
             children = this.props.kids.map(function(comment, index) {
@@ -31,7 +33,7 @@ var Comment = React.createClass({
             </div>
         );
     }
-});
+}
                     // commentId={comment.id}
                     // text={comment.text}
                     // by={comment.by}

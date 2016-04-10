@@ -1,10 +1,13 @@
-var CommentList = React.createClass({
-    onBackClick: function(event){
+import React from 'react';
+import Comment from './Comment'
+
+export default class CommentList extends React.Component {
+    onBackClick(event){
         AppDispatcher.dispatch({
             eventName: 'home'
         })
-    },
-    render: function() {
+    }
+    render() {
         var viewNodes = [];
 
         if(this.props.article.kids){
@@ -44,7 +47,7 @@ var CommentList = React.createClass({
             </div>
         );
     }
-});
+}
 
 // {
 //     "by": "HillaryBriss",

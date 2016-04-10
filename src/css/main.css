@@ -1,6 +1,13 @@
 .loadmask.modal {
     background-color: rgba(40, 40, 40, .8);
 }
+
+.loadmask.modal .modal-body {
+	margin: auto;
+	content:url("../assets/loading.gif");
+	padding-bottom: 25px;
+}
+
 .navbar .btn-refresh {
 	float: right;
 	margin-right: 10px;

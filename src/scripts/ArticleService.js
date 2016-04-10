@@ -1,3 +1,5 @@
+import Firebase from 'firebase';
+
 var ArticleService = function() {
     var me = this,
         firebaseApi = new Firebase("https://hacker-news.firebaseio.com/v0/");
@@ -43,7 +45,7 @@ var ArticleService = function() {
         return new Promise(function(resolve, reject){
             var i = 0,
                 itemsToResolve = [],
-                itemId = null
+                itemId = null,
                 prms = null;
 
             if(items && items.length){
@@ -126,3 +128,5 @@ var ArticleService = function() {
 //     "url": "http://annotated-code.maryrosecook.com/circles-bouncing-off-lines/index.html"
 // };
 };
+
+export default ArticleService;
