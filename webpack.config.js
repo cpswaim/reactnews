@@ -4,6 +4,11 @@ var webpack = require('webpack'),
 
 var PROD = JSON.parse(process.env.PROD_ENV || '0');
 
+var entry = [
+    'webpack-dev-server/client?http://0.0.0.0:8080',
+    './src/scripts/app.jsx'
+];
+
 var alias = {
     'bootstrap-material-design': ''
 };
@@ -32,17 +37,17 @@ if (PROD) {
         })
     ];
 
+
+
     Object.assign(alias, prodAlias);
     plugins = plugins.concat(prodPlugins);
+
+    entry.shift();
 }
 
 
 module.exports = {
-    entry: [
-        'webpack-dev-server/client?http://0.0.0.0:8080',
-        './src/scripts/app.jsx'
-        // './Hello.jsx'
-    ],
+    entry,
     module: {
         loaders: [{
             test: /\.jsx?$/,
