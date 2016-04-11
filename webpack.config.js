@@ -9,9 +9,7 @@ var entry = [
     './src/scripts/app.jsx'
 ];
 
-var alias = {
-    'bootstrap-material-design': ''
-};
+var alias = {};
 
 var plugins = [
     new webpack.ProvidePlugin({
@@ -50,8 +48,8 @@ module.exports = {
     entry,
     module: {
         loaders: [{
-            test: /\.jsx?$/,
-            exclude: /(node_modules|bower_components)/,
+            test: /\.(jsx|js)?$/,
+            exclude: /node_modules/,
             loader: 'babel', // 'babel-loader' is also a legal name to reference
             query: {
                 presets: ['es2015', 'react']
