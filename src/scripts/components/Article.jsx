@@ -1,12 +1,17 @@
-var Article = React.createClass({
-    onCommentsClick: function(){
-        var me = this;
+import React from 'react';
+
+export default class Article extends React.Component {
+    constructor(props){
+        super(props);
+        this.onCommentsClick = this.onCommentsClick.bind(this);
+    }
+    onCommentsClick(){
         AppDispatcher.dispatch({
             eventName: 'viewComments',
             content: this.props
         })
-    },
-    render: function() {
+    }
+    render() {
         return (
             <div className="row">
                 <div className="col-lg-12">
@@ -30,4 +35,4 @@ var Article = React.createClass({
             </div>
         );
     }
-});
+}

@@ -1,5 +1,7 @@
-var LoadMask = React.createClass({
-    render: function() {
+import React from 'react';
+
+export default class LoadMask extends React.Component {
+    render() {
         return (
             <div className="loadmask modal">
                 <div className="modal-dialog modal-sm">
@@ -7,12 +9,10 @@ var LoadMask = React.createClass({
                         <div className="modal-header">
                             <h4 className="modal-title">Loading Latest News...</h4>
                         </div>
-                        <div className="modal-body">
-                            <img src="assets/loading.gif" />
-                        </div>
+                        <div className="modal-body"></div>
                     </div>
                 </div>
             </div>
         );
     }
-});
+}

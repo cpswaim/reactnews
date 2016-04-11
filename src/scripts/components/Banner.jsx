@@ -1,15 +1,17 @@
-var Banner = React.createClass({
-    onRefreshClick: function(event){
+import React from 'react';
+
+export default class Banner extends React.Component {
+    onRefreshClick(event){
         AppDispatcher.dispatch({
             eventName: 'reload'
         })
-    },
-    onTitleClick: function(event){
+    }
+    onTitleClick(event){
         AppDispatcher.dispatch({
             eventName: 'home'
         })
-    },
-    render: function() {
+    }
+    render() {
         return (
             <div className="navbar navbar-warning">
                 <div className="navbar-header">
@@ -23,4 +25,4 @@ var Banner = React.createClass({
             </div>
         );
     }
-});
+}

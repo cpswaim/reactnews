@@ -1,5 +1,8 @@
-var ArticleList = React.createClass({
-    render: function() {
+import React from 'react';
+import Article from './Article';
+
+export default class ArticleList extends React.Component {
+    render() {
         var articleNodes = this.props.data.map(function(article, index) {
             //console.log(index);
             return (
@@ -20,4 +23,4 @@ var ArticleList = React.createClass({
             </div>
         );
     }
-});
+}

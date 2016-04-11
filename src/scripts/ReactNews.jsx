@@ -1,8 +1,25 @@
-var ReactNews = React.createClass({
-    getInitialState: function() {
-        return {data: [], selectedArticle: null};
-    },
-    componentDidMount: function() {
+import React from 'react';
+import ArticleStore from './stores/ArticleStore';
+import LoadMask from './components/LoadMask';
+import Banner from './components/Banner';
+import ArticleList from './components/ArticleList';
+import CommentList from './components/CommentList';
+import $ from 'jquery';
+
+export default class ReactNews extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            data: [],
+            selectedArticle: null
+        };
+        this.listeners = {
+            "reload": "loadData",
+            "home": "showArticleList",
+            "viewComments": "selectArticle"
+        };
+    }
+    componentDidMount() {
         var me = this,
             articleStore = new ArticleStore();
 
@@ -21,28 +38,27 @@ var ReactNews = React.createClass({
 
         me.setStore(articleStore);
         me.loadData();
-
-    },
-    mask: function(){
+    }
+    mask(){
         $('.loadmask.modal').show();
-    },
-    unmask: function(){
+    }
+    unmask(){
         $('.loadmask.modal').hide();
-    },
-    setStore: function(newStore){
+    }
+    setStore(newStore){
         if(this.store){
-            this.store.unbind('articlesLoaded', this.updateArticles);
+            this.store.unbind('articlesLoaded', this.updateArticles.bind(this));
             this.store = null;
         }
         if(newStore){
-            newStore.bind('articlesLoaded', this.updateArticles);
+            newStore.bind('articlesLoaded', this.updateArticles.bind(this));
             this.store = newStore;
         }
-    },
-    getStore: function(){
+    }
+    getStore(){
         return this.store;
-    },
-    loadData: function(){
+    }
+    loadData(){
         var me = this;
         me.mask();
 
@@ -50,14 +66,14 @@ var ReactNews = React.createClass({
             me.unmask();
             $.material.init();
         });
-    },
-    updateArticles: function(){
+    }
+    updateArticles(){
         var me = this,
             articles = null;
         articles = me.getStore().getAll();
         me.setState({data: articles, selectedArticle: null});
-    },
-    selectArticle: function(selected){
+    }
+    selectArticle(selected){
         var me = this,
             store = me.getStore(),
             article = store.getById(selected.articleId);
@@ -69,15 +85,15 @@ var ReactNews = React.createClass({
             me.setState({data: articles, selectedArticle: article});
             me.unmask();
         })
-    },
-    showArticleList: function(){
+    }
+    showArticleList(){
         var me = this,
             store = me.getStore(),
             articles = store.getAll();
 
         me.setState({data: articles, selectedArticle: null});
-    },
-    render: function() {
+    }
+    render() {
         return (
             <div className="application container">
                 <LoadMask />
@@ -95,19 +111,5 @@ var ReactNews = React.createClass({
 
             </div>
         );
-    },
-    listeners: {
-        "reload": "loadData",
-        "home": "showArticleList",
-        "viewComments": "selectArticle"
     }
-});
-
-document.addEventListener("DOMContentLoaded", function(event) {
-    window.AppDispatcher = new Flux.Dispatcher();
-
-    React.render(
-        <ReactNews />,
-        document.getElementById('content')
-    );
-})
+}
